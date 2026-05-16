@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obdulio Resto Bar — Asunción, Paraguay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5EFE0;
+      --warm-white: #FAF6EE;
+      --dark: #1A1008;
+      --charcoal: #2C2418;
+      --gold: #B8923A;
+      --gold-light: #D4A84B;
+      --brown: #6B4C2A;
+      --muted: #8B7355;
+      --border: rgba(184, 146, 58, 0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: transparent;
+      transition: background 0.5s, backdrop-filter 0.5s;
+    }
+    nav.scrolled {
+      background: rgba(250, 246, 238, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-reserve {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 0.5px solid var(--gold);
+      padding: 0.5rem 1.2rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-reserve:hover { background: var(--gold); color: var(--warm-white); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(160deg, rgba(26,16,8,0.65) 0%, rgba(26,16,8,0.3) 60%, rgba(26,16,8,0.7) 100%),
+        url('https://visitparaguay.travel/storage/Establishments/691742ce06e1a.webp') center/cover no-repeat;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 0.92;
+      color: #FAF6EE;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: rgba(250,246,238,0.8);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-block;
+      color: rgba(250,246,238,0.85);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(250,246,238,0.4);
+      padding-bottom: 0.15rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: #fff; border-color: rgba(250,246,238,0.85); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 4rem;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(250,246,238,0.5);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 0.5px;
+      height: 50px;
+      background: rgba(250,246,238,0.35);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.35; transform: scaleY(1); }
+      50% { opacity: 0.8; transform: scaleY(0.6); }
+    }
+
+    /* SECTION COMMON */
+    section { padding: 7rem 4rem; }
+    .section-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--brown); font-weight: 400; }
+    .section-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.78;
+      color: var(--muted);
+      max-width: 580px;
+    }
+
+    /* STRIP STATS */
+    .stats-strip {
+      background: var(--dark);
+      padding: 3rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      padding: 1.5rem 2rem;
+      border-right: 0.5px solid rgba(184,146,58,0.2);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(250,246,238,0.5);
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      padding: 0;
+    }
+    .about-text {
+      padding: 7rem 5rem;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-text .section-body { margin-bottom: 1.5rem; }
+    .about-text .section-body + .section-body { margin-top: -0.5rem; }
+    .about-image {
+      position: relative;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .about-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-image-overlay {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      background: rgba(26,16,8,0.8);
+      backdrop-filter: blur(8px);
+      border: 0.5px solid var(--border);
+      padding: 1.2rem 1.6rem;
+    }
+    .overlay-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .overlay-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(250,246,238,0.9);
+    }
+
+    /* MENU HIGHLIGHTS */
+    .menu-section {
+      background: var(--warm-white);
+    }
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+    .menu-header-left { max-width: 560px; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .menu-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      cursor: default;
+    }
+    .menu-card-img {
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+    .menu-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .menu-card:hover .menu-card-img img { transform: scale(1.04); }
+    .menu-card-body {
+      padding: 1.6rem 1.8rem;
+    }
+    .menu-cat {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .menu-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* FULL WIDTH PHOTO */
+    .full-photo {
+      height: 60vh;
+      min-height: 400px;
+      overflow: hidden;
+      position: relative;
+    }
+    .full-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .full-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(26,16,8,0.65) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem;
+    }
+    .full-photo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(250,246,238,0.95);
+      max-width: 700px;
+      line-height: 1.4;
+    }
+
+    /* COCKTAILS */
+    .cocktails {
+      background: var(--dark);
+      padding: 7rem 4rem;
+    }
+    .cocktails .section-eyebrow { color: var(--gold-light); }
+    .cocktails .section-title { color: var(--warm-white); }
+    .cocktails .section-title em { color: var(--gold); }
+    .cocktails-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      border: 0.5px solid rgba(184,146,58,0.2);
+    }
+    .cocktail-item {
+      padding: 2rem 2.5rem;
+      border-right: 0.5px solid rgba(184,146,58,0.2);
+      border-bottom: 0.5px solid rgba(184,146,58,0.2);
+      transition: background 0.3s;
+    }
+    .cocktail-item:nth-child(even) { border-right: none; }
+    .cocktail-item:hover { background: rgba(184,146,58,0.06); }
+    .cocktail-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--warm-white);
+      margin-bottom: 0.4rem;
+    }
+    .cocktail-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(250,246,238,0.45);
+      line-height: 1.5;
+    }
+    .cocktails-note {
+      margin-top: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(250,246,238,0.35);
+    }
+
+    /* ENVIRONMENT */
+    .ambiente {
+      padding: 7rem 4rem;
+      background: var(--cream);
+    }
+    .ambiente-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .ambiente-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 240px 240px;
+      gap: 0.8rem;
+    }
+    .ambiente-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ambiente-gallery img:first-child {
+      grid-column: 1 / -1;
+      height: 300px;
+    }
+
+    /* INFO SECTION */
+    .info-section {
+      padding: 6rem 4rem;
+      background: var(--warm-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .info-block { margin-bottom: 2.5rem; }
+    .info-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.7rem;
+    }
+    .info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+    .info-value strong {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .service-pill {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--brown);
+      background: rgba(107,76,42,0.1);
+      border: 0.5px solid rgba(107,76,42,0.2);
+      padding: 0.3rem 0.8rem;
+    }
+
+    /* MAP CTA */
+    .map-cta {
+      background: var(--charcoal);
+      padding: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .map-cta-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--warm-white);
+    }
+    .map-cta-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(250,246,238,0.45);
+      margin-top: 0.4rem;
+    }
+    .map-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 0.5px solid var(--gold);
+      padding: 0.9rem 2rem;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .map-link:hover { background: var(--gold); color: var(--dark); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 4rem 4rem 2.5rem;
+      border-top: 0.5px solid rgba(184,146,58,0.15);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid rgba(184,146,58,0.12);
+    }
+    .footer-brand .nav-logo { color: var(--warm-white); display: block; margin-bottom: 0.8rem; }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(250,246,238,0.4);
+      line-height: 1.6;
+    }
+    .footer-col-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .footer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-list a, .footer-list li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(250,246,238,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      line-height: 1.5;
+    }
+    .footer-list a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(250,246,238,0.25);
+    }
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-social a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(250,246,238,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    /* RESERVATION BANNER */
+    .reservation-banner {
+      background: var(--gold);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .res-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--dark);
+    }
+    .res-phone {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .res-phone:hover { opacity: 0.75; }
+
+    /* DECORATIVE DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .divider-line { flex: 1; height: 0.5px; background: var(--border); }
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: 0.12s; }
+    .fade-up:nth-child(3) { transition-delay: 0.24s; }
+    .fade-up:nth-child(4) { transition-delay: 0.36s; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .hero { padding: 0 2rem 5rem; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .about { grid-template-columns: 1fr; }
+      .about-image { min-height: 380px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .cocktails-grid { grid-template-columns: 1fr; }
+      .cocktail-item:nth-child(even) { border-right: 0.5px solid rgba(184,146,58,0.2); }
+      .ambiente-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .info-section { grid-template-columns: 1fr; gap: 0; }
+      .map-cta { flex-direction: column; gap: 2rem; text-align: center; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .reservation-banner { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">OBDULIO</a>
+    <ul class="nav-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="#ambiente">Ambiente</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="tel:+595976105521" class="nav-reserve">Reservar</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Shopping del Sol · Asunción, Paraguay</p>
+      <h1 class="hero-title">OBDULIO<br><em>Resto Bar</em></h1>
+      <p class="hero-subtitle">Donde el buen gusto se convierte en recuerdo. Gastronomía de autor, cócteles de autor y un ambiente que invita a quedarse.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn-primary">Ver el menú</a>
+        <a href="tel:+595976105521" class="btn-ghost">Hacer una reserva</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">2023</div>
+      <div class="stat-label">Año de apertura</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">110</div>
+      <div class="stat-label">Comensales</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">13</div>
+      <div class="stat-label">Países de experiencia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">9–24</div>
+      <div class="stat-label">Horario todos los días</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about" id="nosotros">
+    <div class="about-text">
+      <p class="section-eyebrow fade-up">Nuestra historia</p>
+      <h2 class="section-title fade-up">Un homenaje al<br><em>fútbol y la mesa</em></h2>
+      <p class="section-body fade-up">Obdulio nació de un proyecto familiar impulsado por la pasión por el deporte y la gastronomía. El nombre rinde homenaje a un destacado jugador de fútbol — una herencia de garra, carácter y excelencia.</p>
+      <div class="divider fade-up">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+      <p class="section-body fade-up">Al frente de la cocina, Federico Amandola, un chef uruguayo con experiencia en 13 países, que llegó a Asunción para plasmar décadas de aprendizaje en cada plato. La carta es el resultado de un proceso de prueba y ajuste constante para satisfacer al paladar local sin dejar de lado la innovación.</p>
+    </div>
+    <div class="about-image">
+      <img src="https://visitparaguay.travel/storage/Establishments/691742e49802f.webp" alt="Interior de Obdulio" />
+      <div class="about-image-overlay">
+        <div class="overlay-label">Chef ejecutivo</div>
+        <div class="overlay-text">Federico Amandola · Uruguay</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU HIGHLIGHTS -->
+  <section class="menu-section" id="menu">
+    <div class="menu-header">
+      <div class="menu-header-left">
+        <p class="section-eyebrow fade-up">La carta</p>
+        <h2 class="section-title fade-up">Cocina que <em>permanece</em><br>en la memoria</h2>
+      </div>
+      <a href="tel:+595976105521" class="btn-primary" style="white-space:nowrap;">Consultar menú completo</a>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card fade-up">
+        <div class="menu-card-img">
+          <img src="https://visitparaguay.travel/storage/Establishments/6917431d8ea6d.webp" alt="Carnes" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-cat">Plato principal</div>
+          <div class="menu-name">Costilla de vaca braseada</div>
+          <div class="menu-desc">Costillar entero cocinado durante ocho horas. Acompañado de papas rissole, mostaza dijon, perejil y aceitunas negras.</div>
+        </div>
+      </div>
+      <div class="menu-card fade-up">
+        <div class="menu-card-img">
+          <img src="https://visitparaguay.travel/storage/Establishments/691743844fff7.webp" alt="Pastas" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-cat">Pastas artesanales</div>
+          <div class="menu-name">Risotto de frutos de mar</div>
+          <div class="menu-desc">Risotto con tinta de calamar, preparado en cocina con ingredientes frescos seleccionados. Uno de los más pedidos de la carta.</div>
+        </div>
+      </div>
+      <div class="menu-card fade-up">
+        <div class="menu-card-img">
+          <img src="https://visitparaguay.travel/storage/Establishments/691742ce06e1a.webp" alt="Entradas" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-cat">Entrada</div>
+          <div class="menu-name">Carpacho de pulpo</div>
+          <div class="menu-desc">Presentación elegante y sabores sutiles. Junto con las mollejas y la trilogía de tomates, es una de nuestras entradas estrellas.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 2.5rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border);">
+      <p class="section-eyebrow">También en nuestra carta</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem;">
+        <span class="service-pill">Ojo de bife con papas rissole</span>
+        <span class="service-pill">Mollejas con papas rosti</span>
+        <span class="service-pill">Trilogía de tomates</span>
+        <span class="service-pill">Croquetas de entre costilla</span>
+        <span class="service-pill">Croquetas de jamón y queso</span>
+        <span class="service-pill">Cheesecake de frutos rojos</span>
+        <span class="service-pill">Delicia de dulce de leche</span>
+        <span class="service-pill">Petit fours de vitrina</span>
+        <span class="service-pill">Pan artesanal horneado en casa</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL PHOTO BREAK -->
+  <div class="full-photo">
+    <img src="https://visitparaguay.travel/storage/Establishments/691742e49802f.webp" alt="Obdulio ambiente" />
+    <div class="full-photo-overlay">
+      <p class="full-photo-text">"Las pastas y carnes son la especialidad de la casa — elaboradas con procesos casi artesanales."</p>
+    </div>
+  </div>
+
+  <!-- COCKTAILS -->
+  <section class="cocktails" id="cocteles">
+    <p class="section-eyebrow">Bar & cócteles</p>
+    <h2 class="section-title">Tragos que<br><em>cuentan historias</em></h2>
+    <div class="cocktails-grid">
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">The King</div>
+        <div class="cocktail-desc">Cóctel de la casa — el rey de la carta</div>
+      </div>
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">Green Day</div>
+        <div class="cocktail-desc">Fresco y vibrante. Firma propia de Obdulio</div>
+      </div>
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">Charro Negro</div>
+        <div class="cocktail-desc">Intenso y ahumado, con carácter propio</div>
+      </div>
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">Negroni</div>
+        <div class="cocktail-desc">El clásico italiano en su mejor versión</div>
+      </div>
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">Pisco Sour</div>
+        <div class="cocktail-desc">Cítrico, espumoso y perfectamente equilibrado</div>
+      </div>
+      <div class="cocktail-item fade-up">
+        <div class="cocktail-name">Mojito · Sangría · Caipiriña</div>
+        <div class="cocktail-desc">Los grandes clásicos de cualquier barra</div>
+      </div>
+    </div>
+    <p class="cocktails-note">Carta de vinos curada para elevar cada plato. Pedile a nuestro equipo la sugerencia del día.</p>
+  </section>
+
+  <!-- AMBIENTE -->
+  <section class="ambiente" id="ambiente">
+    <div class="ambiente-layout">
+      <div>
+        <p class="section-eyebrow fade-up">El espacio</p>
+        <h2 class="section-title fade-up">Un ambiente que<br><em>invita a quedarse</em></h2>
+        <p class="section-body fade-up">La decoración combina la solidez del mármol, la calidez de la madera, toques de mimbre y plantas colgantes. Un espacio familiar y colaborativo, ideal para sentirse como en casa.</p>
+        <div class="divider fade-up">
+          <div class="divider-line"></div>
+          <div class="divider-diamond"></div>
+          <div class="divider-line"></div>
+        </div>
+        <p class="section-body fade-up">70 lugares en el salón interior y 40 en la terraza exterior — ambas zonas climatizadas. El aroma del pan recién horneado y los dulces de la vitrina son el primer saludo al llegar.</p>
+        <div style="margin-top: 2rem;" class="fade-up">
+          <div class="services-grid">
+            <span class="service-pill">WiFi</span>
+            <span class="service-pill">Estacionamiento</span>
+            <span class="service-pill">Aire acondicionado</span>
+            <span class="service-pill">Área no fumadores</span>
+            <span class="service-pill">Pago con tarjeta</span>
+            <span class="service-pill">Reservas</span>
+          </div>
+        </div>
+      </div>
+      <div class="ambiente-gallery fade-up">
+        <img src="https://visitparaguay.travel/storage/Establishments/6917431d8ea6d.webp" alt="Obdulio interior" />
+        <img src="https://visitparaguay.travel/storage/Establishments/691742e49802f.webp" alt="Obdulio mesa" />
+        <img src="https://visitparaguay.travel/storage/Establishments/691743844fff7.webp" alt="Obdulio plato" />
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION BANNER -->
+  <div class="reservation-banner">
+    <p class="res-text">¿Listo para vivir la experiencia Obdulio?</p>
+    <a href="tel:+595976105521" class="res-phone">+595 976 105 521</a>
+  </div>
+
+  <!-- INFO + CONTACT -->
+  <section class="info-section" id="contacto">
+    <div>
+      <p class="section-eyebrow">Información práctica</p>
+      <h2 class="section-title" style="font-size: 2rem;">Cómo<br><em>encontrarnos</em></h2>
+      <div class="info-block">
+        <div class="info-label">Dirección</div>
+        <div class="info-value">Shopping del Sol<br>Prof. Delia Frutos de González<br><strong>Asunción, Paraguay</strong></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario</div>
+        <div class="info-value"><strong>Todos los días</strong><br>09:00 — 00:00 hs</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Teléfono & Reservas</div>
+        <div class="info-value"><a href="tel:+595976105521" style="color:var(--gold);text-decoration:none;font-weight:600;">+595 976 105 521</a></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Servicios</div>
+        <div class="services-grid">
+          <span class="service-pill">Restaurante</span>
+          <span class="service-pill">Bar & cócteles</span>
+          <span class="service-pill">Música en vivo</span>
+          <span class="service-pill">WiFi gratis</span>
+          <span class="service-pill">Estacionamiento</span>
+          <span class="service-pill">Reservas</span>
+          <span class="service-pill">Tarjetas</span>
+          <span class="service-pill">Climatizado</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="section-eyebrow">Seguinos</p>
+      <h2 class="section-title" style="font-size: 2rem;"><em>Redes sociales</em><br>& contacto</h2>
+      <p class="section-body">Seguí nuestra cuenta para descubrir novedades, platos del día, eventos especiales y mucho más.</p>
+      <div style="margin-top: 2rem;">
+        <div class="info-block">
+          <div class="info-label">Instagram</div>
+          <div class="info-value"><a href="https://instagram.com" target="_blank" style="color:var(--gold);text-decoration:none;">@obdulio_restobar</a></div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Reservas online</div>
+          <div class="info-value">Llamanos o escribinos directamente por WhatsApp al <strong>+595 976 105 521</strong></div>
+        </div>
+      </div>
+      <div style="margin-top: 2rem;">
+        <a href="tel:+595976105521" class="btn-primary">Reservar ahora →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP CTA -->
+  <div class="map-cta">
+    <div>
+      <p class="map-cta-text">Shopping del Sol, Asunción</p>
+      <p class="map-cta-sub">PC9M+7HH, Prof. Delia Frutos de González</p>
+    </div>
+    <a href="https://maps.google.com/?q=-25.2817871,-57.5661365" target="_blank" class="map-link">
+      Ver en Google Maps ↗
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">OBDULIO</a>
+        <p class="footer-tagline">Donde el buen gusto<br>se convierte en recuerdo.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Menú</p>
+        <ul class="footer-list">
+          <li>Entradas</li>
+          <li>Pastas artesanales</li>
+          <li>Carnes & cortes</li>
+          <li>Risottos</li>
+          <li>Postres</li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Bar</p>
+        <ul class="footer-list">
+          <li>Cócteles de la casa</li>
+          <li>Cócteles clásicos</li>
+          <li>Carta de vinos</li>
+          <li>Sin alcohol</li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contacto</p>
+        <ul class="footer-list">
+          <li><a href="tel:+595976105521">+595 976 105 521</a></li>
+          <li>Shopping del Sol</li>
+          <li>Asunción, Paraguay</li>
+          <li>Todos los días 9–24 hs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 Obdulio Resto Bar — Asunción, Paraguay</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">TripAdvisor</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

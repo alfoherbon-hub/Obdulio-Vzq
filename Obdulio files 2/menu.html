@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú — Obdulio Resto Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5EFE0;
+      --warm-white: #FAF6EE;
+      --dark: #1A1008;
+      --charcoal: #2C2418;
+      --gold: #B8923A;
+      --gold-light: #D4A84B;
+      --brown: #6B4C2A;
+      --muted: #8B7355;
+      --border: rgba(184,146,58,0.22);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--warm-white); color: var(--dark); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(250,246,238,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.08em; color: var(--dark); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+    .nav-reserve { font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 0.5px solid var(--gold); padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s; }
+    .nav-reserve:hover { background: var(--gold); color: var(--warm-white); }
+
+    /* HERO */
+    .page-hero {
+      min-height: 38vh;
+      background: var(--dark);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+      padding-top: 100px;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(184,146,58,0.12) 0%, transparent 70%);
+    }
+    .hero-label { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; position: relative; }
+    .hero-h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 700; line-height: 0.95; color: var(--warm-white); position: relative; }
+    .hero-h1 em { font-style: italic; font-weight: 400; color: var(--gold-light); }
+    .hero-note { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 300; color: rgba(250,246,238,0.45); margin-top: 1rem; position: relative; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      position: sticky; top: 68px; z-index: 90;
+      background: var(--cream);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0 4rem;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); background: none; border: none; cursor: pointer;
+      padding: 1.1rem 1.6rem; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .filter-btn:hover { color: var(--charcoal); }
+    .filter-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* MENU CONTENT */
+    .menu-content { padding: 5rem 4rem; }
+
+    .menu-section { margin-bottom: 5rem; display: none; }
+    .menu-section.visible { display: block; }
+
+    .section-header {
+      display: flex; align-items: baseline; gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .section-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; color: var(--charcoal);
+    }
+    .section-name em { font-style: italic; font-weight: 400; color: var(--brown); }
+    .section-count {
+      font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 300;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ITEMS */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .item {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 1.4rem 1.8rem;
+      border-bottom: 0.5px solid var(--border);
+      border-right: 0.5px solid var(--border);
+      transition: background 0.2s;
+    }
+    .item:hover { background: var(--cream); }
+    .item:nth-child(even) { border-right: none; }
+    .item-info { flex: 1; padding-right: 1.5rem; }
+    .item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--charcoal);
+      margin-bottom: 0.3rem; line-height: 1.3;
+    }
+    .item-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem; font-weight: 300; color: var(--muted);
+      line-height: 1.55;
+    }
+    .item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--gold);
+      white-space: nowrap; padding-top: 0.1rem;
+    }
+    .item-price span {
+      font-family: 'DM Sans', sans-serif; font-size: 0.65rem;
+      font-weight: 300; color: var(--muted); display: block; text-align: right;
+    }
+
+    /* SALSAS ESPECIAL */
+    .salsas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .salsa-item {
+      padding: 1.2rem 1.4rem;
+      border-right: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      transition: background 0.2s;
+    }
+    .salsa-item:hover { background: rgba(184,146,58,0.05); }
+    .salsa-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; color: var(--charcoal);
+      margin-bottom: 0.25rem;
+    }
+    .salsa-price {
+      font-family: 'DM Sans', sans-serif; font-size: 0.72rem;
+      font-weight: 400; color: var(--gold);
+    }
+
+    /* GUARNICIONES */
+    .guarni-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .guarni-item {
+      padding: 1.2rem 1.6rem;
+      border-right: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .guarni-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 400; color: var(--charcoal);
+    }
+    .guarni-price {
+      font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--gold);
+    }
+
+    /* POSTRES — cards */
+    .postres-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    .postre-card {
+      background: var(--cream);
+      padding: 1.8rem;
+      border: 0.5px solid var(--border);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .postre-card:hover { background: #EDE5CE; transform: translateY(-2px); }
+    .postre-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .postre-price {
+      font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+      font-weight: 500; color: var(--gold);
+    }
+
+    /* NOTA */
+    .menu-nota {
+      background: var(--dark); color: rgba(250,246,238,0.55);
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1rem; font-weight: 300;
+      padding: 1.2rem 2rem; margin-top: 2.5rem;
+      border-left: 2px solid var(--gold);
+    }
+
+    /* FOOTER STRIP */
+    .footer-strip {
+      background: var(--dark);
+      padding: 2.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 0.5px solid rgba(184,146,58,0.15);
+    }
+    .footer-strip a { font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,246,238,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-strip a:hover { color: var(--gold); }
+    .footer-strip-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: rgba(250,246,238,0.7); }
+    .footer-links { display: flex; gap: 2rem; }
+
+    /* RESERVATION CTA */
+    .res-strip {
+      background: var(--gold); padding: 1.8rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .res-strip p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; font-weight: 300; color: var(--dark); }
+    .res-strip a { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--dark); text-decoration: none; }
+
+    /* FADE */
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .page-hero { padding: 0 1.5rem 3rem; padding-top: 90px; }
+      .filter-bar { padding: 0 1rem; }
+      .menu-content { padding: 3rem 1.5rem; }
+      .items-grid { grid-template-columns: 1fr; }
+      .item { border-right: none; }
+      .salsas-grid { grid-template-columns: repeat(2, 1fr); }
+      .guarni-grid { grid-template-columns: repeat(2, 1fr); }
+      .postres-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-strip { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+      .res-strip { flex-direction: column; gap: 0.8rem; text-align: center; }
+    }
+    @media (max-width: 500px) {
+      .postres-grid { grid-template-columns: 1fr; }
+      .salsas-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">OBDULIO</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="menu.html" class="active">Menú</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+    <a href="tel:+595976105521" class="nav-reserve">Reservar</a>
+  </nav>
+
+  <div class="page-hero">
+    <p class="hero-label">2026</p>
+    <h1 class="hero-h1">Nuestra<br><em>carta</em></h1>
+    <p class="hero-note">Precios en guaraníes · Pastas y panes elaborados en cocina</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-section="all">Todo</button>
+    <button class="filter-btn" data-section="compartir">Para compartir</button>
+    <button class="filter-btn" data-section="entradas">Entradas</button>
+    <button class="filter-btn" data-section="pastas">Risottos & Pastas</button>
+    <button class="filter-btn" data-section="salsas">Salsas</button>
+    <button class="filter-btn" data-section="principales">Principales</button>
+    <button class="filter-btn" data-section="guarniciones">Guarniciones</button>
+    <button class="filter-btn" data-section="pizzas">Pizzas</button>
+    <button class="filter-btn" data-section="postres">Postres</button>
+  </div>
+
+  <div class="menu-content">
+
+    <!-- PARA COMPARTIR -->
+    <div class="menu-section visible fade-up" id="sec-compartir">
+      <div class="section-header">
+        <h2 class="section-name">Para <em>compartir</em></h2>
+        <span class="section-count">9 opciones</span>
+      </div>
+      <div class="items-grid">
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Croquetitas de entre costilla</div>
+            <div class="item-desc">Croquetas crujientes rellenas de entre costilla desmenuzada</div>
+          </div>
+          <div class="item-price">Gs. 35.000<span>por porción</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Croquetitas de jamón y queso</div>
+            <div class="item-desc">Croquetas doradas con jamón cocido y queso fundido</div>
+          </div>
+          <div class="item-price">Gs. 27.000<span>por porción</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Empanadas de mandioca</div>
+            <div class="item-desc">Carne cortada a cuchillo en masa de mandioca artesanal</div>
+          </div>
+          <div class="item-price">Gs. 35.000<span>por porción</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Picada de picaña</div>
+            <div class="item-desc">Picaña, chipa guasú, mandioca y chorizo</div>
+          </div>
+          <div class="item-price">Gs. 120.000<span>para compartir</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Tabla de quesos</div>
+            <div class="item-desc">Jamón cocido, pepperoni, muzzarella, aceituna, queso sardo, jamón crudo, cherrys, queso azul, provolone, catupiry, queso Paraguay, huevo de codorniz, pan, cracker, grisín</div>
+          </div>
+          <div class="item-price">Gs. 200.000<span>para compartir</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Brusqueta de asado</div>
+            <div class="item-desc">Pan tostado con asado desmenuzado y condimentos</div>
+          </div>
+          <div class="item-price">Gs. 30.000<span>por porción</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Provoleta</div>
+            <div class="item-desc">Queso provolone a la plancha, dorado y fundido</div>
+          </div>
+          <div class="item-price">Gs. 50.000<span>por porción</span></div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Hamburguesa casera</div>
+            <div class="item-desc">Pan de papa artesanal acompañado de papas fritas caseras</div>
+          </div>
+          <div class="item-price">Gs. 40.000<span>por unidad</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTRADAS -->
+    <div class="menu-section visible fade-up" id="sec-entradas">
+      <div class="section-header">
+        <h2 class="section-name"><em>Entradas</em></h2>
+        <span class="section-count">8 opciones</span>
+      </div>
+      <div class="items-grid">
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Burrata con tomates cherry</div>
+            <div class="item-desc">Aceitunas negras, parmesano y jamón de Parma</div>
+          </div>
+          <div class="item-price">Gs. 70.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ensalada Caesar</div>
+            <div class="item-desc">Clásica, con crutones, parmesano y aderezo Caesar</div>
+          </div>
+          <div class="item-price">Gs. 65.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ensalada de peras tibias</div>
+            <div class="item-desc">Jamón crudo, parmesano, nuez, rúcula y lechuga morada</div>
+          </div>
+          <div class="item-price">Gs. 65.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Chivito uruguayo</div>
+            <div class="item-desc">Clásico sándwich uruguayo con todos sus ingredientes</div>
+          </div>
+          <div class="item-price">Gs. 40.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Trilogía de tomates</div>
+            <div class="item-desc">Variedad de tomates de estación, albahaca, brote de soja, piel de burrata, perejil, aceituna, cebolla morada</div>
+          </div>
+          <div class="item-price">Gs. 35.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ensalada rúcula, palta y parmesano</div>
+            <div class="item-desc">Fresca y liviana con vinagreta suave</div>
+          </div>
+          <div class="item-price">Gs. 25.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Caracú con pasta de ajo</div>
+            <div class="item-desc">Tuétano con pasta de ajo y tostón artesanal</div>
+          </div>
+          <div class="item-price">Gs. 45.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Mollejas con papas rosti</div>
+            <div class="item-desc">Mollejas tiernas con chutney de tomate y papas rosti crujientes</div>
+          </div>
+          <div class="item-price">Gs. 40.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISOTTOS Y PASTAS -->
+    <div class="menu-section visible fade-up" id="sec-pastas">
+      <div class="section-header">
+        <h2 class="section-name">Risottos <em>& Pastas</em></h2>
+        <span class="section-count">12 opciones · elaboradas en cocina</span>
+      </div>
+      <div class="items-grid">
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ñoquis de batata</div>
+            <div class="item-desc">Masa suave de batata, perfecta con salsas cremosas</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Tagliatelle</div>
+            <div class="item-desc">Con reducción de crema, albahaca y tomates secos</div>
+          </div>
+          <div class="item-price">Gs. 70.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ñoquis de papas con parmesano</div>
+            <div class="item-desc">Ñoquis clásicos, esponjosos, con parmesano rallado</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Spaghetti</div>
+            <div class="item-desc">A elección de salsa — ver sección salsas</div>
+          </div>
+          <div class="item-price">Gs. 65.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Sorrentinos de jamón y queso</div>
+            <div class="item-desc">Pasta rellena al estilo italiano, generosa y sabrosa</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Agnolotti de salmón</div>
+            <div class="item-desc">Pasta rellena de salmón fresco con salsa suave</div>
+          </div>
+          <div class="item-price">Gs. 85.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Malfatti de espinacas</div>
+            <div class="item-desc">Pasta rústica italiana con espinacas frescas</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ravioles de calabaza</div>
+            <div class="item-desc">Con nuez y queso sardo — combinación otoñal</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Capeletis de cordero</div>
+            <div class="item-desc">Pasta rellena con cordero braseado y especias</div>
+          </div>
+          <div class="item-price">Gs. 80.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Fettuccine frutos del mar</div>
+            <div class="item-desc">Mariscos frescos sobre fettuccine artesanal</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Risotto de hongos</div>
+            <div class="item-desc">Cremoso, con variedad de hongos y parmesano</div>
+          </div>
+          <div class="item-price">Gs. 80.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Risotto frutos del mar</div>
+            <div class="item-desc">Con tinta de calamar — uno de los más pedidos de la carta</div>
+          </div>
+          <div class="item-price">Gs. 90.000</div>
+        </div>
+      </div>
+      <div class="menu-nota">Todas las pastas son elaboradas artesanalmente en nuestra cocina. Consultá la disponibilidad del día.</div>
+    </div>
+
+    <!-- SALSAS -->
+    <div class="menu-section visible fade-up" id="sec-salsas">
+      <div class="section-header">
+        <h2 class="section-name"><em>Salsas</em></h2>
+        <span class="section-count">para acompañar tus pastas</span>
+      </div>
+      <div class="salsas-grid">
+        <div class="salsa-item"><div class="salsa-name">Blanca</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">Bolognesa</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">Pomodoro</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">Crema de hongos</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">Carbonara</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">Pesto de rúcula</div><div class="salsa-price">Gs. 23.000</div></div>
+        <div class="salsa-item"><div class="salsa-name">4 quesos</div><div class="salsa-price">Gs. 32.000</div></div>
+      </div>
+    </div>
+
+    <!-- PRINCIPALES -->
+    <div class="menu-section visible fade-up" id="sec-principales">
+      <div class="section-header">
+        <h2 class="section-name">Platos <em>principales</em></h2>
+        <span class="section-count">11 opciones</span>
+      </div>
+      <div class="items-grid">
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Costillar — ventana de asado</div>
+            <div class="item-desc">Con papas, mostaza Dijon, perejil y aceitunas negras</div>
+          </div>
+          <div class="item-price">Gs. 105.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Ojo de bife</div>
+            <div class="item-desc">Con papas rissole, tomates cherry, hongos, chimichurri y criolla</div>
+          </div>
+          <div class="item-price">Gs. 110.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Milanesa de lomito</div>
+            <div class="item-desc">Guarnición a elección</div>
+          </div>
+          <div class="item-price">Gs. 90.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Milanesa de pollo</div>
+            <div class="item-desc">Guarnición a elección</div>
+          </div>
+          <div class="item-price">Gs. 75.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Picanha</div>
+            <div class="item-desc">Guarnición a elección</div>
+          </div>
+          <div class="item-price">Gs. 105.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Pechuga de pollo grillé</div>
+            <div class="item-desc">Guarnición a elección</div>
+          </div>
+          <div class="item-price">Gs. 80.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Milanesa de lomito a la napolitana</div>
+            <div class="item-desc">Con salsa napolitana, muzzarella y jamón</div>
+          </div>
+          <div class="item-price">Gs. 93.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Matambrito de cerdo marinado</div>
+            <div class="item-desc">Con romero, limón, mandioca frita, tomates, nueces y albahaca</div>
+          </div>
+          <div class="item-price">Gs. 80.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Cazuela de surubí</div>
+            <div class="item-desc">Surubí en cazuela con vegetales y fondo de cocción</div>
+          </div>
+          <div class="item-price">Gs. 90.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Salmón</div>
+            <div class="item-desc">Con árbol de zucchini y brócoli, puré de remolacha</div>
+          </div>
+          <div class="item-price">Gs. 100.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Surubí con ratatouille</div>
+            <div class="item-desc">Filete de surubí sobre cama de ratatouille provenzal</div>
+          </div>
+          <div class="item-price">Gs. 90.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUARNICIONES -->
+    <div class="menu-section visible fade-up" id="sec-guarniciones">
+      <div class="section-header">
+        <h2 class="section-name"><em>Guarniciones</em></h2>
+        <span class="section-count">todas a Gs. 28.000</span>
+      </div>
+      <div class="guarni-grid">
+        <div class="guarni-item"><span class="guarni-name">Chipa guasú</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Ensalada mixta</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Ensalada verde</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Papas fritas</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Puré de papas</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Arroz quesu</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Ratatouille</span><span class="guarni-price">Gs. 28.000</span></div>
+        <div class="guarni-item"><span class="guarni-name">Puré de boniato</span><span class="guarni-price">Gs. 28.000</span></div>
+      </div>
+    </div>
+
+    <!-- PIZZAS -->
+    <div class="menu-section visible fade-up" id="sec-pizzas">
+      <div class="section-header">
+        <h2 class="section-name"><em>Pizzas</em></h2>
+        <span class="section-count">4 variedades</span>
+      </div>
+      <div class="items-grid">
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Pepperoni</div>
+            <div class="item-desc">Muzzarella y pepperoni</div>
+          </div>
+          <div class="item-price">Gs. 62.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Mozzarella</div>
+            <div class="item-desc">Clásica con muzzarella y pomodoro</div>
+          </div>
+          <div class="item-price">Gs. 57.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Jamón crudo y rúcula</div>
+            <div class="item-desc">Con rúcula fresca y jamón crudo importado</div>
+          </div>
+          <div class="item-price">Gs. 72.000</div>
+        </div>
+        <div class="item">
+          <div class="item-info">
+            <div class="item-name">Bacon</div>
+            <div class="item-desc">Muzzarella y tiras de bacon crocante</div>
+          </div>
+          <div class="item-price">Gs. 62.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSTRES -->
+    <div class="menu-section visible fade-up" id="sec-postres">
+      <div class="section-header">
+        <h2 class="section-name"><em>Postres</em></h2>
+        <span class="section-count">9 opciones · todos a Gs. 29.000</span>
+      </div>
+      <div class="postres-grid">
+        <div class="postre-card">
+          <div class="postre-name">Panqueque de dulce de leche</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Helados artesanales</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Delicia de dulce de leche</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Crumble de manzana</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Volcán de chocolate con helado</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Crème brûlée</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Cheesecake</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Brownie con helado americana</div>
+          <div class="postre-price">Gs. 29.000</div>
+        </div>
+        <div class="postre-card">
+          <div class="postre-name">Crema catalana</div>
+          <div class="postre-price">Gs. 29.000 · con naranja y canela</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /menu-content -->
+
+  <div class="res-strip">
+    <p>¿Todo listo para reservar tu mesa?</p>
+    <a href="tel:+595976105521">+595 976 105 521</a>
+  </div>
+
+  <div class="footer-strip">
+    <span class="footer-strip-logo">OBDULIO</span>
+    <div class="footer-links">
+      <a href="index.html">Inicio</a>
+      <a href="galeria.html">Galería</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a href="https://maps.google.com/?q=-25.2817871,-57.5661365" target="_blank">Cómo llegar</a>
+    </div>
+    <span style="font-family:'DM Sans',sans-serif;font-size:0.68rem;color:rgba(250,246,238,0.25);">Shopping del Sol · Asunción</span>
+  </div>
+
+  <script>
+    const btns = document.querySelectorAll('.filter-btn');
+    const sections = document.querySelectorAll('.menu-section');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.section;
+        sections.forEach(sec => {
+          if (target === 'all') {
+            sec.classList.add('visible');
+          } else {
+            sec.classList.toggle('visible', sec.id === 'sec-' + target);
+          }
+        });
+        window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 68, behavior: 'smooth' });
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
