@@ -251,9 +251,9 @@
       <li><a href="index.html">Inicio</a></li>
       <li><a href="menu.html">Menú</a></li>
       <li><a href="galeria.html" class="active">Galería</a></li>
-      <li><a href="index.html#contacto">Contacto</a></li>
+      <li><a href="https://wa.me/595976105521?text=Hola!%20Tengo%20una%20consulta%20sobre%20Obdulio" target="_blank">Contacto</a></li>
     </ul>
-    <a href="tel:+595976105521" class="nav-reserve">Reservar</a>
+    <a href="https://wa.me/595976105521?text=Hola!%20Quiero%20hacer%20una%20reserva%20en%20Obdulio" target="_blank" class="nav-reserve">Reservar</a>
   </nav>
 
   <div class="page-hero">
@@ -262,21 +262,11 @@
     <p class="hero-note">Platos, tragos, cocina y ambiente — fotografías de la sesión 2026</p>
   </div>
 
-  <!-- INSTRUCCIONES PARA CURSOR — se pueden eliminar antes de publicar -->
-  <div class="setup-notice" id="setup-notice">
-    <div class="setup-title">↳ Instrucciones para Cursor — eliminar antes de publicar</div>
-    <div class="setup-body">
-      Creá una carpeta <code>fotos/</code> en la raíz del proyecto y copiá tus ~100 fotos ahí.<br>
-      Luego reemplazá el array <code>FOTOS</code> en el script de abajo con los nombres reales de tus archivos.<br>
-      Ejemplo: <code>{ src: 'fotos/Obdulio-01.jpg', cat: 'platos' }</code><br>
-      Categorías disponibles: <code>platos</code> · <code>tragos</code> · <code>cocina</code> · <code>ambiente</code>
-    </div>
-  </div>
-
   <div class="filter-bar">
     <button class="filter-btn active" data-cat="all">Todo</button>
     <button class="filter-btn" data-cat="platos">Platos</button>
     <button class="filter-btn" data-cat="tragos">Tragos & Cócteles</button>
+    <button class="filter-btn" data-cat="productos">Productos</button>
     <button class="filter-btn" data-cat="cocina">Cocina</button>
     <button class="filter-btn" data-cat="ambiente">Ambiente</button>
   </div>
@@ -308,7 +298,7 @@
     <div class="footer-links">
       <a href="index.html">Inicio</a>
       <a href="menu.html">Menú</a>
-      <a href="index.html#contacto">Contacto</a>
+      <a href="https://wa.me/595976105521?text=Hola!%20Tengo%20una%20consulta%20sobre%20Obdulio" target="_blank">Contacto</a>
     </div>
     <a href="tel:+595976105521" style="color:var(--gold) !important;">+595 976 105 521</a>
   </div>
@@ -320,22 +310,41 @@
     // Categorías: 'platos' | 'tragos' | 'cocina' | 'ambiente'
     // ─────────────────────────────────────────────────────────
     const FOTOS = [
-      { src: 'fotos/Obdulio-3.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-9.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-15.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-21.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-27.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-33.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-39.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-45.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-51.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-57.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-63.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-69.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-75.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-81.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-87.jpg', cat: 'platos' },
-      { src: 'fotos/Obdulio-97.jpg', cat: 'platos' },
+      { src: 'fotos/plato-ojodebife-1.jpg', cat: 'platos' },
+      { src: 'fotos/trago-bartender-1.jpg', cat: 'tragos' },
+      { src: 'fotos/lugar-fachada-1.jpg', cat: 'ambiente' },
+      { src: 'fotos/cocina-pase.jpg', cat: 'cocina' },
+      { src: 'fotos/producto-vitrina.jpg', cat: 'productos' },
+      { src: 'fotos/plato-matambrito-1.jpg', cat: 'platos' },
+      { src: 'fotos/plato-caracu-1.jpg', cat: 'platos' },
+      { src: 'fotos/cocina-chef.jpg', cat: 'cocina' },
+      { src: 'fotos/trago-bartender-2.jpg', cat: 'tragos' },
+      { src: 'fotos/plato-capeletis-1.jpg', cat: 'platos' },
+      { src: 'fotos/producto-granola.jpg', cat: 'productos' },
+      { src: 'fotos/lugar-barra.jpg', cat: 'ambiente' },
+      { src: 'fotos/plato-milanesa-1.jpg', cat: 'platos' },
+      { src: 'fotos/cocina-masa-pastas.jpg', cat: 'cocina' },
+      { src: 'fotos/plato-pechuga-1.jpg', cat: 'platos' },
+      { src: 'fotos/trago-bartender-3.jpg', cat: 'tragos' },
+      { src: 'fotos/plato-ojodebife-2.jpg', cat: 'platos' },
+      { src: 'fotos/producto-tartaletas-limon.jpg', cat: 'productos' },
+      { src: 'fotos/servicio-cafe-1.jpg', cat: 'ambiente' },
+      { src: 'fotos/plato-croquetas-1.jpg', cat: 'platos' },
+      { src: 'fotos/cocina-cookies.jpg', cat: 'cocina' },
+      { src: 'fotos/plato-matambrito-2.jpg', cat: 'platos' },
+      { src: 'fotos/plato-capeletis-2.jpg', cat: 'platos' },
+      { src: 'fotos/lugar-fachada-2.jpg', cat: 'ambiente' },
+      { src: 'fotos/postre-brownie.jpg', cat: 'productos' },
+      { src: 'fotos/plato-caracu-2.jpg', cat: 'platos' },
+      { src: 'fotos/cocina-tartaletas.jpg', cat: 'cocina' },
+      { src: 'fotos/plato-pechuga-2.jpg', cat: 'platos' },
+      { src: 'fotos/servicio-cafe-2.jpg', cat: 'ambiente' },
+      { src: 'fotos/plato-matambrito-pure.jpg', cat: 'platos' },
+      { src: 'fotos/cocina-pollo-fuego.jpg', cat: 'cocina' },
+      { src: 'fotos/plato-croquetas-2.jpg', cat: 'platos' },
+      { src: 'fotos/plato-lengua.jpg', cat: 'platos' },
+      { src: 'fotos/plato-milanesa-2.jpg', cat: 'platos' },
+      { src: 'fotos/plato-bife-provoleta.jpg', cat: 'platos' },
     ];
     // ─────────────────────────────────────────────────────────
 
@@ -358,7 +367,6 @@
         return;
       }
       emptyState.classList.remove('show');
-      document.getElementById('setup-notice').style.display = 'none';
 
       fotos.forEach((foto, i) => {
         const div = document.createElement('div');
