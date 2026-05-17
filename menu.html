@@ -37,6 +37,12 @@
     .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
     .nav-reserve { font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 0.5px solid var(--gold); padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s; }
     .nav-reserve:hover { background: var(--gold); color: var(--warm-white); }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 30px; height: 30px; padding: 0; background: none; border: none; cursor: pointer; }
+    .nav-toggle span { display: block; width: 100%; height: 2px; background: var(--dark); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* HERO */
     .page-hero {
@@ -240,7 +246,15 @@
     /* MOBILE */
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: rgba(250,246,238,0.98); backdrop-filter: blur(12px);
+        max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+      }
+      .nav-links.open { max-height: 80vh; border-bottom: 0.5px solid var(--border); }
+      .nav-links a { display: block; opacity: 1; padding: 1.1rem 1.5rem; border-top: 0.5px solid var(--border); }
       .page-hero { padding: 0 1.5rem 3rem; padding-top: 90px; }
       .filter-bar { padding: 0 1rem; }
       .menu-content { padding: 3rem 1.5rem; }
@@ -263,13 +277,16 @@
 
   <nav>
     <a href="index.html" class="nav-logo">OBDULIO</a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Inicio</a></li>
       <li><a href="menu.html" class="active">Menú</a></li>
       <li><a href="galeria.html">Galería</a></li>
       <li><a href="https://wa.me/595976105521?text=Hola!%20Tengo%20una%20consulta%20sobre%20Obdulio" target="_blank">Contacto</a></li>
     </ul>
-    <a href="https://wa.me/595976105521?text=Hola!%20Quiero%20hacer%20una%20reserva%20en%20Obdulio" target="_blank" class="nav-reserve">Reservar</a>
+    <div class="nav-actions">
+      <a href="https://wa.me/595976105521?text=Hola!%20Quiero%20hacer%20una%20reserva%20en%20Obdulio" target="_blank" class="nav-reserve">Reservar</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
   </nav>
 
   <div class="page-hero">
@@ -744,6 +761,17 @@
   </div>
 
   <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+    }));
+
     const btns = document.querySelectorAll('.filter-btn');
     const sections = document.querySelectorAll('.menu-section');
 

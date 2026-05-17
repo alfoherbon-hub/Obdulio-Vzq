@@ -53,9 +53,11 @@
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: 0.08em;
-      color: var(--dark);
+      color: var(--warm-white);
       text-decoration: none;
+      transition: color 0.3s;
     }
+    nav.scrolled .nav-logo { color: var(--dark); }
     .nav-links {
       display: flex;
       gap: 2.5rem;
@@ -67,12 +69,13 @@
       font-weight: 400;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--dark);
+      color: var(--warm-white);
       text-decoration: none;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.3s;
     }
     .nav-links a:hover { opacity: 1; }
+    nav.scrolled .nav-links a { color: var(--dark); }
     .nav-reserve {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
@@ -86,6 +89,26 @@
       transition: background 0.2s, color 0.2s;
     }
     .nav-reserve:hover { background: var(--gold); color: var(--warm-white); }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 30px; height: 30px;
+      padding: 0;
+      background: none; border: none; cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block; width: 100%; height: 2px;
+      background: var(--warm-white);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s, background 0.3s;
+    }
+    nav.scrolled .nav-toggle span { background: var(--dark); }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* HERO */
     .hero {
@@ -696,8 +719,31 @@
 
     /* MOBILE */
     @media (max-width: 900px) {
-      nav { padding: 1.2rem 2rem; }
-      .nav-links { display: none; }
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(250,246,238,0.98);
+        backdrop-filter: blur(12px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+      .nav-links.open {
+        max-height: 80vh;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .nav-links a, nav.scrolled .nav-links a {
+        display: block;
+        color: var(--charcoal);
+        opacity: 1;
+        padding: 1.1rem 1.5rem;
+        border-top: 0.5px solid var(--border);
+      }
+      .menu-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       section { padding: 5rem 2rem; }
       .hero { padding: 0 2rem 5rem; }
       .stats-strip { grid-template-columns: repeat(2, 1fr); }
@@ -719,14 +765,17 @@
   <!-- NAV -->
   <nav id="nav">
     <a href="#" class="nav-logo">OBDULIO</a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="menu.html">Menú</a></li>
       <li><a href="galeria.html">Galería</a></li>
       <li><a href="#ambiente">Ambiente</a></li>
       <li><a href="https://wa.me/595976105521?text=Hola!%20Tengo%20una%20consulta%20sobre%20Obdulio" target="_blank">Contacto</a></li>
     </ul>
-    <a href="https://wa.me/595976105521?text=Hola!%20Quiero%20hacer%20una%20reserva%20en%20Obdulio" target="_blank" class="nav-reserve">Reservar</a>
+    <div class="nav-actions">
+      <a href="https://wa.me/595976105521?text=Hola!%20Quiero%20hacer%20una%20reserva%20en%20Obdulio" target="_blank" class="nav-reserve">Reservar</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -792,7 +841,7 @@
         <p class="section-eyebrow fade-up">La carta</p>
         <h2 class="section-title fade-up">Cocina que <em>permanece</em><br>en la memoria</h2>
       </div>
-      <a href="menu.html" class="btn-primary" style="white-space:nowrap;">Consultar menú completo</a>
+      <a href="menu.html" class="btn-primary">Consultar menú completo</a>
     </div>
     <div class="menu-grid">
       <div class="menu-card fade-up">
@@ -1034,6 +1083,17 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
+
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+    }));
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
